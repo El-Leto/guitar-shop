@@ -1,0 +1,26 @@
+.page {
+  display: grid;
+  grid-template-rows: min-content 1fr min-content;
+  margin: 0 auto;
+  min-height: 100vh;
+  grid-template-columns: 100%;
+}
+
+.wrapper {
+  position: relative;
+  z-index: 100;
+  display: grid;
+  grid-template-columns: 208px auto;
+}
+
+.title_wrapper {
+  grid-column: 1 / 3;
+}
+
+.title {
+  font-size: 22px;
+  line-height: 26px;
+  letter-spacing: 2px;
+  margin-top: 14px;
+  margin-bottom: 19px;
+}

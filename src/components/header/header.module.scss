@@ -1,5 +1,6 @@
 .wrapper {
   background-color: var(--color-header-bg);
+  min-width: 1020px;
 }
 
 .navigation {
@@ -12,6 +13,10 @@
 
 .logo {
   display: block;
+
+  &:hover {
+    opacity: 0.7;
+  }
 }
 
 .list {
@@ -52,7 +57,7 @@
   margin-right: 11px;
 
   &:last-child {
-    margin-right: 7px;
+    margin-right: -1px;
   }
 }
 
@@ -71,4 +76,49 @@
   &:active {
     color: var(--color-black-active);
   }
+}
+
+.guitar {
+  position: relative;
+  height: 200px;
+  min-width: 1020px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 282px;
+
+    background-image: url(../../images/line_header.png);
+    background-repeat: repeat-x;
+    background-color: white;
+    background-position: 0% 24px;
+    background-size: auto;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    right: 0;
+    top: -38px;
+    width: 825px;
+    height: 298px;
+
+    background-image: url('../../images/guitar_header.png');
+    background-repeat: no-repeat;
+    background-size: 825px 298px;
+    background-position: 90% center;
+  }
+}
+
+.cart_number {
+  color: var(--color-red);
+  font-size: 10px;
+  line-height: 0;
+  margin-left: 2px;
+  margin-top: 2px;
 }

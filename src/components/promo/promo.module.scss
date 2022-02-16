@@ -1,0 +1,95 @@
+.wrapper {
+  margin-bottom: 100px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  margin-bottom: 171px;
+}
+
+.title {
+  font-size: 16px;
+  line-height: 15px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.text {
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: 0.9px;
+  margin: 0;
+  margin-bottom: 19px;
+}
+
+.error {
+  color: var(--color-red);
+  font-size: 14px;
+}
+
+.price {
+  font-size: 20px;
+  font-weight: 700;
+  text-align: right;
+  margin: 0;
+  margin-bottom: 39px;
+  padding-right: 4px;
+  letter-spacing: 1.5px;
+}
+
+.input {
+  text-transform: uppercase;
+  width: 170px;
+  padding: 8px 30px 9px;
+  border: 2px solid var(--color-grey);
+  border-radius: 2px;
+  margin-right: 32px;
+  text-align: center;
+  letter-spacing: 1.6px;
+}
+
+.button {
+  background-color: var(--color-button-grey);
+  border: none;
+  border-radius: 2px;
+  font-size: 16px;
+  line-height: 15px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  color: var(--color-white);
+  padding: 8px 14px 12px 24px;
+
+  &:hover {
+    background-color: var(--color-number);
+  }
+
+  &:active {
+    background-color: var(--color-grey-dark);
+  }
+}
+
+.button_order {
+  background-color: var(--color-button-orange);
+  border: none;
+  border-radius: 2px;
+  font-size: 16px;
+  line-height: 15px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  color: var(--color-white);
+  padding: 10px 34px 11px 32px;
+
+  &:hover {
+    background-color: var(--color-orange-hover);
+  }
+
+  &:active {
+    background-color: var(--color-orange-active);
+  }
+}
+
+.order {
+  display: flex;
+  flex-direction: column;
+}

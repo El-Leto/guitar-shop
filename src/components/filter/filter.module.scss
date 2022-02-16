@@ -1,0 +1,131 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2px;
+}
+
+.price {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 28px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 1px;
+    background-color: var(--color-grey-dark);
+    left: 97px;
+    top: 13px;
+  }
+}
+
+.title {
+  font-size: 18px;
+  line-height: 21px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  margin-bottom: 26px;
+  margin-top: 15px;
+  padding-top: 30px;
+  border-top: 0.7px solid var(--color-grey);
+
+  &_first {
+    border-top: none;
+    margin-bottom: 14px;
+  }
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  padding-bottom: 16px;
+}
+
+.input_price {
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  width: 84px;
+  border: 0.7px solid var(--color-number);
+  border-radius: 2px;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+  &:hover {
+    border: 0.7px solid var(--color-grey-dark);
+  }               
+}
+
+.checkbox {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  padding-left: 40px;
+  letter-spacing: 0.4px;
+}
+
+.checkbox_input + .checkbox {
+  &::before {
+    content: '';
+    position: absolute;
+    display: block;
+    top: 45%;
+    transform: translateY(-50%);
+    left: 0;
+    width: 24px;
+    height: 24px;
+    border: 0.7px solid var(--color-number);
+    border-radius: 2px;
+  }
+}
+
+.checkbox_input:hover + .checkbox {
+  &::before {
+    border: 0.7px solid var(--color-grey-dark);
+  }
+}
+
+.checkbox_input:focus + .checkbox {
+  &::before {
+    border: 0.7px solid var(--color-grey-dark);
+  }
+}
+
+.checkbox_input:active + .checkbox {
+  &::before {
+    border: 0.7px solid var(--color-button-grey);
+  }
+}
+
+.checkbox_input:disabled + .checkbox {
+  color: var(--color-grey-light);
+  
+  &::before {
+    border: 0.7px solid var(--color-grey-light);
+    background-color: #F7F3F3;
+  }
+}
+
+.checkbox_input:checked + .checkbox {
+  &::after {
+    content: '';
+    position: absolute;
+    display: block;
+    top: 45%;
+    transform: translateY(-50%);
+    left: 7px;
+    width: 12px;
+    height: 9px;
+    background-image: url("../../images/tick.svg");
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: contain;
+  }
+}
