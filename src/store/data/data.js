@@ -295,7 +295,7 @@ const initialState  = {
   strings: [],
   sorting: '',
   direction: 'меньше',
-  cart: [],
+  carts: [],
   price: {
     from: '',
     to: '',
@@ -318,22 +318,22 @@ const data = createReducer(initialState, (builder) => {
       state.direction = action.payload;
     })
     .addCase(addToCart, (state, action) => {
-      if (state.cart.some((item) => item.id === action.payload.id)) {
+      if (state.carts.some((item) => item.id === action.payload.id)) {
         const index = state.cart.findIndex((item) => item.id === action.payload.id);
 
-        state.cart[index].quantity ++;
+        state.carts[index].quantity ++;
       } else {
-        state.cart.push({...action.payload, quantity: 1});
+        state.carts.push({...action.payload, quantity: 1});
       }
     })
     .addCase(deleteFromCart, (state, action) => {
-      const index = state.cart.findIndex((item) => item.id === action.payload);
-      state.cart.splice(index, 1);
+      const index = state.carts.findIndex((item) => item.id === action.payload);
+      state.carts.splice(index, 1);
     })
     .addCase(changeQuantity, (state, action) => {
-      const index = state.cart.findIndex((item) => item.id === action.payload.id);
+      const index = state.carts.findIndex((item) => item.id === action.payload.id);
 
-      state.cart[index].quantity = action.payload.quantity;
+      state.carts[index].quantity = action.payload.quantity;
     })
     .addCase(increaseTotalPrice, (state, action) => {
       state.price.total = state.price.total + action.payload;

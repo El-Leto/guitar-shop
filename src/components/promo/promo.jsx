@@ -33,23 +33,28 @@ function Promo() {
 
     switch (promocode) {
       case Promocode.GITARAHIT:
+      {
         setPrice(guitarHitDiscount(totalPrice));
         setIsPromoValid(true);
         break;
-
+      }
       case Promocode.SUPERGITARA:
+      {
         setPrice(superGitaraDiscount(totalPrice));
         setIsPromoValid(true);
         break;
-
+      }
       case Promocode.GITARA2020:
+      {
         setPrice(gitara2020Discount(totalPrice));
         setIsPromoValid(true);
         break;
-
+      }
       default:
+      {
         setPrice(totalPrice);
         setIsPromoValid(false);
+      }
     }
   };
 
@@ -63,6 +68,7 @@ function Promo() {
           onSubmit={handleFormSubmit}
         >
           <label>
+            <span className="visually-hidden">Ввести купон</span>
             <input
               className={styles.input}
               type="text"

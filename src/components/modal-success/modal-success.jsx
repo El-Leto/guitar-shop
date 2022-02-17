@@ -8,7 +8,7 @@ import styles from './modal-success.module.scss';
 
 function ModalSuccess({
   isOpen,
-  setIsModalOpen,
+  onIsModalOpen,
 }) {
 
   return (
@@ -17,7 +17,7 @@ function ModalSuccess({
       isOpen={isOpen}
       shouldCloseOnOverlayClick
       shouldCloseOnEsc
-      onRequestClose={() => setIsModalOpen(false)}
+      onRequestClose={() => onIsModalOpen(false)}
       style={{
         overlay: { backgroundColor: 'rgba(88, 87, 87, 0.6)', zIndex: '10000' },
       }}
@@ -30,7 +30,7 @@ function ModalSuccess({
           </h2>
           <button
             className={styles.button}
-            onClick={() => setIsModalOpen(false)}
+            onClick={() => onIsModalOpen(false)}
             type="button"
             aria-label="Закрыть"
           />
@@ -42,7 +42,7 @@ function ModalSuccess({
           <button
             className={cn(styles.button_next, styles.button_add_action)}
             type="button"
-            onClick={() => setIsModalOpen(false)}
+            onClick={() => onIsModalOpen(false)}
           >
             Продолжить покупки
           </button>
@@ -54,7 +54,7 @@ function ModalSuccess({
 
 ModalSuccess.propTypes = {
   isOpen: PropTypes.bool.isRequired,
-  setIsModalOpen: PropTypes.func.isRequired,
+  onIsModalOpen: PropTypes.func.isRequired,
 };
 
 export { ModalSuccess };

@@ -39,7 +39,7 @@ function CartItem({ product }) {
   };
 
   const handleMinusButtonClick = () => {
-    if (count === 1) {
+    if (count === MIN_COUNT) {
       setIsModalOpen(true);
       return;
     }
@@ -125,14 +125,14 @@ function CartItem({ product }) {
             dispatch(setIsModalOpen(false));
             document.body.style = 'overflow: visible;';
           }}
-          setIsModalOpen={setIsModalOpen}
+          onIsModalOpen={setIsModalOpen}
           name={name}
           img={image}
           article={article}
           type={type}
           strings={strings}
           price={price}
-          handleButtonClick={handleDeleteButtonClick}
+          onButtonClick={handleDeleteButtonClick}
         />
       )}
     </li>

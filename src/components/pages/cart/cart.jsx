@@ -28,7 +28,6 @@ function Cart() {
               <CartList/>
               <div className={styles.promo_wrapper}>
                 <Promo/>
-                {/* <Order/> */}
               </div>
             </section>
             : <p className={styles.text}>В корзине ничего нет, поищите нужный товар в каталоге.</p>

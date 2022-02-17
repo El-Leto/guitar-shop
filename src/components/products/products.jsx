@@ -38,7 +38,7 @@ function Products() {
       </ul>
       <Pagination
         activePage={activePage}
-        setActivePage={setActivePage}
+        onActivePage={setActivePage}
         totalPages={totalPages}
         paginate={paginate}
       />

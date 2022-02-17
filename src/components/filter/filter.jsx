@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { changeTypes, changeStrings, addPriceFrom, addPriceTo } from '../../store/action';
 import { getProducts } from '../../store/data/selectors';
 import Input from '../input/input';
-import { typesState, stringsState } from '../../const';
+import { MIN_COUNT, typesState, stringsState } from '../../const';
 import styles from './filter.module.scss';
 
 function Filter() {
@@ -27,11 +27,11 @@ function Filter() {
   }, 0);
 
   const minPrice = products.reduce((arr, current, index) => {
-    if (index === 1) {
+    if (index === MIN_COUNT) {
       arr = current.price;
     }
 
-    if (index > 1 && current.price < arr) {
+    if (index > MIN_COUNT && current.price < arr) {
       arr = current.price;
     }
 
@@ -158,6 +158,7 @@ function Filter() {
           <h3 className={styles.title}>Цена, ₽</h3>
           <div className={styles.price}>
             <label>
+              <span className="visually-hidden">Ввести цену от</span>
               <input
                 type="text"
                 placeholder="1 000"
@@ -169,6 +170,7 @@ function Filter() {
               />
             </label>
             <label>
+              <span className="visually-hidden">Ввести цену до</span>
               <input
                 type="text"
                 placeholder="30 000"

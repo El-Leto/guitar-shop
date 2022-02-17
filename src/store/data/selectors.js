@@ -22,7 +22,7 @@ const getTypes = (state) => state.types;
 const getStrings = (state) => state.strings;
 const getActiveSort = (state) => state.sorting;
 const getActiveSortDirection = (state) => state.direction;
-const getCart = (state) => state.cart;
+const getCart = (state) => state.carts;
 const getTotalPrice = (state) => state.price.total;
 
 const getFilteredArticles = createSelector(getProducts, getPrice, getTypes, getStrings,

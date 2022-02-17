@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 import styles from './pagination.module.scss';
 
-function Pagination({ activePage, setActivePage, totalPages, paginate }) {
+function Pagination({ activePage, onActivePage, totalPages, paginate }) {
 
   const [pages, setPages] = useState([]);
 
@@ -24,7 +24,7 @@ function Pagination({ activePage, setActivePage, totalPages, paginate }) {
         <button
           className={styles.button}
           type='button'
-          onClick={() => setActivePage((prevPage) => prevPage - 1)}
+          onClick={() => onActivePage((prevPage) => prevPage - 1)}
         >
           Назад
         </button>
@@ -49,7 +49,7 @@ function Pagination({ activePage, setActivePage, totalPages, paginate }) {
         <button
           className={styles.button}
           type='button'
-          onClick={() => setActivePage((prevPage) => prevPage + 1)}
+          onClick={() => onActivePage((prevPage) => prevPage + 1)}
         >
           Далее
         </button>
@@ -60,7 +60,7 @@ function Pagination({ activePage, setActivePage, totalPages, paginate }) {
 
 Pagination.propTypes = {
   activePage: PropTypes.number.isRequired,
-  setActivePage: PropTypes.func.isRequired,
+  onActivePage: PropTypes.func.isRequired,
   totalPages: PropTypes.number.isRequired,
   paginate: PropTypes.func.isRequired,
 };

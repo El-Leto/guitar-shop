@@ -77,17 +77,17 @@ function Product({ product }) {
             dispatch(setIsModalOpen(false));
             document.body.style = 'overflow: visible;';
           }}
-          setIsModalOpen={setIsModalOpen}
+          onIsModalOpen={setIsModalOpen}
           name={name}
           img={image}
           article={article}
           type={type}
           strings={strings}
           price={price}
-          handleButtonClick={handleAddButtonClick}
+          onButtonClick={handleAddButtonClick}
         />
       )}
-      {isModalSuccessOpen && <ModalSuccess isOpen={isModalSuccessOpen} setIsModalOpen={setIsModalSuccessOpen}/>}
+      {isModalSuccessOpen && <ModalSuccess isOpen={isModalSuccessOpen} onIsModalOpen={setIsModalSuccessOpen}/>}
     </li>
   );
 }

@@ -3,7 +3,7 @@ const DEFAULT_PAGE = 1;
 const MIN_COUNT = 1;
 const MAX_PERCENT = 100;
 
-export const AppRoute = {
+const AppRoute = {
   CATALOG: '/',
   CART: '/cart',
 };
@@ -97,6 +97,7 @@ const PopupType = {
 };
 
 export {
+  AppRoute,
   GUITAR_ON_PAGE,
   DEFAULT_PAGE,
   MIN_COUNT,

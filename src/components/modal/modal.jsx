@@ -7,7 +7,7 @@ import styles from './modal.module.scss';
 
 function Modal({
   isOpen,
-  setIsModalOpen,
+  onIsModalOpen,
   popupType,
   name,
   img,
@@ -15,7 +15,7 @@ function Modal({
   type,
   strings,
   price,
-  handleButtonClick,
+  onButtonClick,
 }) {
 
   return (
@@ -24,7 +24,7 @@ function Modal({
       isOpen={isOpen}
       shouldCloseOnOverlayClick
       shouldCloseOnEsc
-      onRequestClose={() => setIsModalOpen(false)}
+      onRequestClose={() => onIsModalOpen(false)}
       style={{
         overlay: { backgroundColor: 'rgba(88, 87, 87, 0.6)', zIndex: '10000' },
       }}
@@ -37,7 +37,7 @@ function Modal({
           </h2>
           <button
             className={styles.button}
-            onClick={() => setIsModalOpen(false)}
+            onClick={() => onIsModalOpen(false)}
             type="button"
             aria-label="Закрыть"
           />
@@ -55,7 +55,7 @@ function Modal({
           <button
             className={styles.button_add}
             type="button"
-            onClick={handleButtonClick}
+            onClick={onButtonClick}
           >
             {popupType === PopupType.ADD ? 'Добавить в корзину' : 'Удалить товар'}
           </button>
@@ -63,7 +63,7 @@ function Modal({
             <button
               className={styles.button_next}
               type="button"
-              onClick={() => setIsModalOpen(false)}
+              onClick={() => onIsModalOpen(false)}
             >
               Продолжить покупки
             </button>
@@ -76,7 +76,7 @@ function Modal({
 
 Modal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
-  setIsModalOpen: PropTypes.func.isRequired,
+  onIsModalOpen: PropTypes.func.isRequired,
   popupType: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
@@ -84,7 +84,7 @@ Modal.propTypes = {
   type: PropTypes.string.isRequired,
   strings: PropTypes.number.isRequired,
   price: PropTypes.number.isRequired,
-  handleButtonClick: PropTypes.func.isRequired,
+  onButtonClick: PropTypes.func.isRequired,
 };
 
 export { Modal };
