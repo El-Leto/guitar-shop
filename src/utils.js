@@ -40,6 +40,19 @@ const superGitaraDiscount = (totalPrice) => totalPrice - Discount.SUPERGITARA;
 
 const gitara2020Discount = (totalPrice) => (totalPrice * Discount.GITARA2020.MIN / MAX_PERCENT) <= Discount.GITARA2020.MAX ? totalPrice - (totalPrice * Discount.GITARA2020.MIN / MAX_PERCENT) : totalPrice - Discount.GITARA2020.MAX;
 
+const getNumber = (str) => {
+
+  if (typeof str === 'string') {
+    return Number(str.replace(/\D+/g, ''));
+  }
+  return str;
+};
+
+const getSumArrayElements = (array) => {
+  let x = 0;
+  return array.map((i)=>x+=i, x).reverse()[0];
+};
+
 export {
   getGuitarsOnPage,
   filterByType,
@@ -49,5 +62,7 @@ export {
   divideNumberByPieces,
   guitarHitDiscount,
   superGitaraDiscount,
-  gitara2020Discount
+  gitara2020Discount,
+  getNumber,
+  getSumArrayElements
 };

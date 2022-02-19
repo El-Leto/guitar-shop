@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Modal } from '../modal/modal';
 import { ModalSuccess } from '../modal-success/modal-success';
-import { addToCart, increaseTotalPrice } from '../../store/action';
+import { addToCart, increaseTotalPrice, changeTotalQuantity } from '../../store/action';
 import star from '../../images/star.svg';
 import starEmpty from '../../images/star-empty.svg';
 import { PopupType } from '../../const';
@@ -37,6 +37,7 @@ function Product({ product }) {
     evt.preventDefault();
     dispatch(addToCart(product));
     dispatch(increaseTotalPrice(price));
+    dispatch(changeTotalQuantity(product));
     setIsModalOpen(false);
     setIsModalSuccessOpen(true);
   };

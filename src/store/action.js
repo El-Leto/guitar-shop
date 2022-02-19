@@ -13,6 +13,7 @@ const ActionType = {
   DECREASE_TOTAL_PRICE: 'decreaseTotalPrice',
   ADD_PRICE_FROM: 'addPriceFrom',
   ADD_PRICE_TO: 'addPriceTo',
+  CHANGE_TOTAL_QUANTITY: 'changeTotalQuantity',
 };
 
 const changeTypes = createAction(ActionType.CHANGE_TYPES, (payload) => ({
@@ -59,6 +60,10 @@ const addPriceTo = createAction(ActionType.ADD_PRICE_TO, (payload) => ({
   payload,
 }));
 
+const changeTotalQuantity = createAction(ActionType.CHANGE_TOTAL_QUANTITY, (payload) => ({
+  payload,
+}));
+
 
 export {
   changeTypes,
@@ -71,5 +76,6 @@ export {
   increaseTotalPrice,
   decreaseTotalPrice,
   addPriceFrom,
-  addPriceTo
+  addPriceTo,
+  changeTotalQuantity
 };

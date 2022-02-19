@@ -5,6 +5,7 @@ import { changeTypes, changeStrings, addPriceFrom, addPriceTo } from '../../stor
 import { getProducts } from '../../store/data/selectors';
 import Input from '../input/input';
 import { MIN_COUNT, typesState, stringsState } from '../../const';
+import { getNumber } from '../../utils';
 import styles from './filter.module.scss';
 
 function Filter() {
@@ -101,7 +102,7 @@ function Filter() {
     }
 
     if (name === 'to') {
-      setPriceTo(value);
+      setPriceTo(getNumber(value));
     }
   };
 
@@ -109,7 +110,7 @@ function Filter() {
     const {name} = e.target;
 
     if (+priceFrom > +priceTo && name === 'from' && priceTo) {
-      setPriceFrom(priceTo);
+      setPriceFrom(getNumber(priceTo));
     }
 
     if (priceFrom < minPrice && priceFrom) {
@@ -117,7 +118,7 @@ function Filter() {
     }
 
     if (+priceTo < +priceFrom && name === 'to' && priceFrom) {
-      setPriceTo(priceFrom);
+      setPriceTo(getNumber(priceFrom));
     }
 
     if (priceTo > maxPrice && priceTo) {
@@ -149,7 +150,6 @@ function Filter() {
     setStrings(array);
   };
 
-
   return (
     <div className={styles.wrapper}>
       <h2 className={cn(styles.title, styles.title_first)}>Фильтр</h2>
@@ -161,24 +161,26 @@ function Filter() {
               <span className="visually-hidden">Ввести цену от</span>
               <input
                 type="text"
-                placeholder="1 000"
+                placeholder={minPrice}
                 aria-label="Цена от"
                 name={'from'}
                 className={styles.input_price}
                 onBlur={handlePriceBlue}
                 onChange={handlePriceChange}
+                value={priceFrom}
               />
             </label>
             <label>
               <span className="visually-hidden">Ввести цену до</span>
               <input
                 type="text"
-                placeholder="30 000"
+                placeholder={maxPrice}
                 aria-label="Цена до"
                 name={'to'}
                 className={styles.input_price}
                 onBlur={handlePriceBlue}
                 onChange={handlePriceChange}
+                value={priceTo}
               />
             </label>
           </div>

@@ -2,6 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import electro from '../../images/electro.png';
 import ukulele from '../../images/ukulele.png';
 import acustic from '../../images/acustic.png';
+import { getSumArrayElements } from '../../utils';
 import {
   changeTypes,
   changeStrings,
@@ -13,7 +14,8 @@ import {
   increaseTotalPrice,
   decreaseTotalPrice,
   addPriceFrom,
-  addPriceTo
+  addPriceTo,
+  changeTotalQuantity
 } from '../action';
 
 const products = [
@@ -26,6 +28,7 @@ const products = [
     strings: 7,
     price: 17500,
     image: electro,
+    quantity: 1,
   },
   {
     id: 2,
@@ -36,6 +39,7 @@ const products = [
     strings: 7,
     price: 29500,
     image: electro,
+    quantity: 1,
   },
   {
     id: 3,
@@ -46,6 +50,7 @@ const products = [
     strings: 4,
     price: 6800,
     image: ukulele,
+    quantity: 1,
   },
   {
     id: 4,
@@ -56,6 +61,7 @@ const products = [
     strings: 6,
     price: 30000,
     image: electro,
+    quantity: 1,
   },
   {
     id: 5,
@@ -66,6 +72,7 @@ const products = [
     strings: 7,
     price: 3500,
     image: acustic,
+    quantity: 1,
   },
   {
     id: 6,
@@ -76,6 +83,7 @@ const products = [
     strings: 6,
     price: 15300,
     image: electro,
+    quantity: 1,
   },
   {
     id: 7,
@@ -86,6 +94,7 @@ const products = [
     strings: 4,
     price: 2200,
     image: ukulele,
+    quantity: 1,
   },
   {
     id: 8,
@@ -96,6 +105,7 @@ const products = [
     strings: 4,
     price: 30000,
     image: electro,
+    quantity: 1,
   },
   {
     id: 9,
@@ -106,6 +116,7 @@ const products = [
     strings: 7,
     price: 1700,
     image: acustic,
+    quantity: 1,
   },
   {
     id: 10,
@@ -116,6 +127,7 @@ const products = [
     strings: 4,
     price: 23000,
     image: electro,
+    quantity: 1,
   },
   {
     id: 11,
@@ -126,6 +138,7 @@ const products = [
     strings: 4,
     price: 18700,
     image: electro,
+    quantity: 1,
   },
   {
     id: 12,
@@ -136,6 +149,7 @@ const products = [
     strings: 7,
     price: 35000,
     image: electro,
+    quantity: 1,
   },
   {
     id: 13,
@@ -146,6 +160,7 @@ const products = [
     strings: 6,
     price: 14900,
     image: electro,
+    quantity: 1,
   },
   {
     id: 14,
@@ -156,6 +171,7 @@ const products = [
     strings: 6,
     price: 7600,
     image: acustic,
+    quantity: 1,
   },
   {
     id: 15,
@@ -166,6 +182,7 @@ const products = [
     strings: 6,
     price: 6500,
     image: acustic,
+    quantity: 1,
   },
   {
     id: 16,
@@ -176,6 +193,7 @@ const products = [
     strings: 7,
     price: 12000,
     image: acustic,
+    quantity: 1,
   },
   {
     id: 17,
@@ -186,6 +204,7 @@ const products = [
     strings: 7,
     price: 9900,
     image: acustic,
+    quantity: 1,
   },
   {
     id: 18,
@@ -196,6 +215,7 @@ const products = [
     strings: 12,
     price: 8900,
     image: acustic,
+    quantity: 1,
   },
   {
     id: 19,
@@ -206,6 +226,7 @@ const products = [
     strings: 12,
     price: 10500,
     image: acustic,
+    quantity: 1,
   },
   {
     id: 20,
@@ -216,6 +237,7 @@ const products = [
     strings: 6,
     price: 13300,
     image: acustic,
+    quantity: 1,
   },
   {
     id: 21,
@@ -226,6 +248,7 @@ const products = [
     strings: 4,
     price: 4800,
     image: ukulele,
+    quantity: 1,
   },
   {
     id: 22,
@@ -236,6 +259,7 @@ const products = [
     strings: 4,
     price: 1900,
     image: ukulele,
+    quantity: 1,
   },
   {
     id: 23,
@@ -246,6 +270,7 @@ const products = [
     strings: 4,
     price: 2500,
     image: ukulele,
+    quantity: 1,
   },
   {
     id: 24,
@@ -256,6 +281,7 @@ const products = [
     strings: 4,
     price: 3800,
     image: ukulele,
+    quantity: 1,
   },
   {
     id: 25,
@@ -266,6 +292,7 @@ const products = [
     strings: 4,
     price: 4100,
     image: ukulele,
+    quantity: 1,
   },
   {
     id: 26,
@@ -276,6 +303,7 @@ const products = [
     strings: 4,
     price: 2700,
     image: ukulele,
+    quantity: 1,
   },
   {
     id: 27,
@@ -286,6 +314,7 @@ const products = [
     strings: 4,
     price: 6700,
     image: ukulele,
+    quantity: 1,
   },
 ];
 
@@ -301,6 +330,7 @@ const initialState  = {
     to: '',
     total: 0,
   },
+  quantity: 0,
 };
 
 const data = createReducer(initialState, (builder) => {
@@ -319,15 +349,16 @@ const data = createReducer(initialState, (builder) => {
     })
     .addCase(addToCart, (state, action) => {
       if (state.carts.some((item) => item.id === action.payload.id)) {
-        const index = state.cart.findIndex((item) => item.id === action.payload.id);
-
-        state.carts[index].quantity ++;
+        const carts = state.carts.map(
+          (item) => item.id !== action.payload.id ? item : {...item, quantity: item.quantity + 1},
+        );
+        state.carts = carts;
       } else {
         state.carts.push({...action.payload, quantity: 1});
       }
     })
     .addCase(deleteFromCart, (state, action) => {
-      const index = state.carts.findIndex((item) => item.id === action.payload);
+      const index = state.carts.findIndex((item) => item.id === action.payload.id);
       state.carts.splice(index, 1);
     })
     .addCase(changeQuantity, (state, action) => {
@@ -346,6 +377,14 @@ const data = createReducer(initialState, (builder) => {
     })
     .addCase(addPriceTo, (state, action) => {
       state.price.to = action.payload;
+    })
+    .addCase(changeTotalQuantity, (state, action) => {
+      const totalQuantity = state.carts.map((item) => {
+        let total = 0;
+        total = total + item.quantity;
+        return total;
+      });
+      state.quantity = getSumArrayElements(totalQuantity);
     });
 });
 

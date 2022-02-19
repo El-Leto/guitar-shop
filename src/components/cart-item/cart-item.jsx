@@ -3,18 +3,18 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { Modal } from '../modal/modal';
-import { deleteFromCart, changeQuantity, increaseTotalPrice, decreaseTotalPrice } from '../../store/action';
-import { MIN_COUNT, PopupType } from '../../const';
+import { deleteFromCart, changeQuantity, increaseTotalPrice, decreaseTotalPrice, changeTotalQuantity } from '../../store/action';
+import { MIN_COUNT, MAX_COUNT, PopupType } from '../../const';
 import { divideNumberByPieces } from '../../utils';
 import styles from './cart-item.module.scss';
 
 function CartItem({ product }) {
 
-  const {id, name, price, image, article, type, strings} = product;
+  const {id, name, price, image, article, type, strings, quantity} = product;
 
   const dispatch = useDispatch();
 
-  const [count, setCount] = useState(MIN_COUNT);
+  const [count, setCount] = useState(quantity);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -29,12 +29,14 @@ function CartItem({ product }) {
 
   useEffect(() => {
     dispatch(changeQuantity({id: id, quantity: count}));
-  }, [id, dispatch, count]);
+    dispatch(changeTotalQuantity(product));
+  }, [id, dispatch, count, product]);
 
   const handleDeleteButtonClick = (evt) => {
     evt.preventDefault();
     dispatch(deleteFromCart(id));
     dispatch(decreaseTotalPrice(price * count));
+    dispatch(changeTotalQuantity(product));
     setIsModalOpen(false);
   };
 
@@ -46,11 +48,18 @@ function CartItem({ product }) {
 
     setCount(((prevState) => prevState - 1));
     dispatch(decreaseTotalPrice(price));
+    dispatch(changeTotalQuantity(product));
   };
 
   const handlePlusButtonClick = () => {
+    if (count >= MAX_COUNT) {
+      setCount(MAX_COUNT);
+      return;
+    }
+
     setCount(((prevState) => prevState + 1));
     dispatch(increaseTotalPrice(price));
+    dispatch(changeTotalQuantity(product));
   };
 
   const handleInputChange = (evt) => {
@@ -65,13 +74,35 @@ function CartItem({ product }) {
       return;
     }
 
+    if (value > 99) {
+      setCount(MAX_COUNT);
+      return;
+    }
+
     if (value === 0) {
-      setIsModalOpen(true);
+      setCount(MIN_COUNT);
       return;
     }
 
     value > prevValue ? dispatch(increaseTotalPrice((value - prevValue) * price)) : dispatch(decreaseTotalPrice((prevValue - value) * price));
     setCount(value);
+  };
+
+  const handlePriceBlue = (evt) => {
+    const value = +evt.target.value;
+
+    if (value < 0) {
+      return;
+    }
+
+    if (value === 0) {
+      setCount(MIN_COUNT);
+      return;
+    }
+
+    if (value > 99) {
+      setCount(MAX_COUNT);
+    }
   };
 
   return (
@@ -106,6 +137,7 @@ function CartItem({ product }) {
               type="text"
               value={count}
               onChange={handleInputChange}
+              onBlur={handlePriceBlue}
             />
           </label>
           <button
@@ -148,6 +180,7 @@ CartItem.propTypes = {
     article: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     strings: PropTypes.number.isRequired,
+    quantity: PropTypes.number.isRequired,
   }),
 };
 

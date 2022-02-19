@@ -1,6 +1,7 @@
 const GUITAR_ON_PAGE = 9;
 const DEFAULT_PAGE = 1;
 const MIN_COUNT = 1;
+const MAX_COUNT = 99;
 const MAX_PERCENT = 100;
 
 const AppRoute = {
@@ -102,6 +103,7 @@ export {
   DEFAULT_PAGE,
   MIN_COUNT,
   MAX_PERCENT,
+  MAX_COUNT,
   SortDirectionButton,
   SortTypeButton,
   Promocode,
