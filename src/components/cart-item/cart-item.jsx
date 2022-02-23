@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { Modal } from '../modal/modal';
 import { deleteFromCart, changeQuantity, increaseTotalPrice, decreaseTotalPrice, changeTotalQuantity } from '../../store/action';
+import { getTotalPrice } from '../../store/data/selectors';
 import { MIN_COUNT, MAX_COUNT, PopupType } from '../../const';
 import { divideNumberByPieces } from '../../utils';
 import styles from './cart-item.module.scss';
@@ -13,6 +14,8 @@ function CartItem({ product }) {
   const {id, name, price, image, article, type, strings, quantity} = product;
 
   const dispatch = useDispatch();
+
+  const totalPrice = useSelector(getTotalPrice);
 
   const [count, setCount] = useState(quantity);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -34,7 +37,7 @@ function CartItem({ product }) {
 
   const handleDeleteButtonClick = (evt) => {
     evt.preventDefault();
-    dispatch(deleteFromCart(id));
+    dispatch(deleteFromCart({id: id}));
     dispatch(decreaseTotalPrice(price * count));
     dispatch(changeTotalQuantity(product));
     setIsModalOpen(false);
@@ -75,34 +78,15 @@ function CartItem({ product }) {
     }
 
     if (value > 99) {
+      totalPrice < MAX_COUNT * price &&
       setCount(MAX_COUNT);
+      dispatch(increaseTotalPrice((MAX_COUNT - prevValue) * price));
       return;
-    }
 
-    if (value === 0) {
-      setCount(MIN_COUNT);
-      return;
     }
 
     value > prevValue ? dispatch(increaseTotalPrice((value - prevValue) * price)) : dispatch(decreaseTotalPrice((prevValue - value) * price));
     setCount(value);
-  };
-
-  const handlePriceBlue = (evt) => {
-    const value = +evt.target.value;
-
-    if (value < 0) {
-      return;
-    }
-
-    if (value === 0) {
-      setCount(MIN_COUNT);
-      return;
-    }
-
-    if (value > 99) {
-      setCount(MAX_COUNT);
-    }
   };
 
   return (
@@ -122,7 +106,7 @@ function CartItem({ product }) {
         </div>
       </div>
       <div className={styles.price_wrapper}>
-        <p className={styles.price}>{divideNumberByPieces(price)} ₽</p>
+        <p className={cn(styles.price, styles.price_one)}>{divideNumberByPieces(price)} ₽</p>
         <div className={styles.quantity_wrapper}>
           <button
             className={cn(styles.button_quantity, styles.button_quantity_minus)}
@@ -137,7 +121,6 @@ function CartItem({ product }) {
               type="text"
               value={count}
               onChange={handleInputChange}
-              onBlur={handlePriceBlue}
             />
           </label>
           <button

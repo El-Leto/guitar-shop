@@ -58,8 +58,8 @@
 }
 
 .price_wrapper {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   min-width: 423px;
 }
 
@@ -67,16 +67,22 @@
   font-size: 20px;
   line-height: 15px;
   letter-spacing: 1px;
-  margin-top: 60px;
+  align-self: center;
+
+  &_one {
+    justify-self: start;
+  }
 
   &_total {
     font-weight: 700;
+    justify-self: end;
   }
 }
 
 .quantity_wrapper {
   display: flex;
   padding-top: 21px;
+  justify-self: center;
 }
 
 .button_quantity {
